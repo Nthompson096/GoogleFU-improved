@@ -37,8 +37,3 @@ There are two files in which you can append stuff:
 
 ## Bugs or ideas?
 If you find any bug or if you have some ideas create an [issue](https://github.com/champmq/GoogleFU/issues)
-
-## ToDO
- - Google Dorks
- - Reverse Image Search
- - More categories
