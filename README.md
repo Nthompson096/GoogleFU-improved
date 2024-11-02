@@ -20,6 +20,8 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
+Be careful about doing this too much, it will flag for too much requests.
+
 
 ## Usage
 ```Bash
