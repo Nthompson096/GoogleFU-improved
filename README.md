@@ -20,11 +20,12 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
+
 ## Usage
 ```Bash
 python3 GoogleFU-gui.py
 ```
-![](https://i.ibb.co/58zVGz2/image.png)
+![demo](https://github.com/user-attachments/assets/28be7885-5b38-4993-ac03-7b7bc11c8318)
 <br>
 
 ## Config
