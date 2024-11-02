@@ -14,7 +14,7 @@ It sorts them into 8 categorys (this can change anytime):
 
 ## Installation & Setup
 ```bash
-git clone [https://github.com/Nthompson096/GoogleFU-improved](https://github.com/Nthompson096/GoogleFU-improved.git)
+git clone https://github.com/Nthompson096/GoogleFU-improved.git
 pip3 install -r requirements.txt
 ```
 
