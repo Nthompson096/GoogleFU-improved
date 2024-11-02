@@ -22,7 +22,7 @@ pip3 install -r requirements.txt
 
 ## Usage
 ```Bash
-python3 GoogleFU.py
+python3 GoogleFU-gui.py
 ```
 ![](https://i.ibb.co/58zVGz2/image.png)
 <br>
