@@ -2,11 +2,13 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 import urllib.parse
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QTextEdit, QComboBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QTextEdit, QComboBox, QFileDialog, QMessageBox
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from modules.sort import Sort
 from modules.search import Search
+import time
+from urllib.error import HTTPError, URLError
 
 class GoogleFuApp(QMainWindow):
     def __init__(self):
@@ -68,6 +70,15 @@ class GoogleFuApp(QMainWindow):
         self.results_display.setReadOnly(True)
         layout.addWidget(self.results_display)
 
+        # Clear and Save buttons
+        clear_button = QPushButton("Clear Results")
+        clear_button.clicked.connect(self.clear_results)
+        layout.addWidget(clear_button)
+
+        save_button = QPushButton("Save Results")
+        save_button.clicked.connect(self.save_results)
+        layout.addWidget(save_button)
+
     def perform_search(self):
         query = self.query_input.text()
         dork = self.dorks_combo.currentText()
@@ -76,15 +87,60 @@ class GoogleFuApp(QMainWindow):
         if dork != "None" and dork_param:
             query = f"{query} {dork}{dork_param}"
 
-        urls = Search(query).urls()
-        sorted_urls = Sort(urls).sort()
+        max_retries = 5
+        retry_delay = 1  # Start with a 1-second delay
 
-        results = f"Search Query: {query}\n\n"
-        for item in sorted_urls:
-            if sorted_urls[item]:
-                results += f"{item.capitalize()}: {', '.join(sorted_urls[item])}\n\n"
+        for attempt in range(max_retries):
+            try:
+                urls = Search(query).urls()  # Assuming this method returns a list of URLs.
+                sorted_urls = Sort(urls).sort()  # Assuming this method sorts the URLs.
 
-        self.results_display.setText(results)
+                results = f"Search Query: {query}\n\n"
+                for item in sorted_urls:
+                    if sorted_urls[item]:
+                        results += f"{item.capitalize()}: {', '.join(sorted_urls[item])}\n\n"
+
+                self.results_display.setText(results)
+                return  # Exit the function if successful
+
+            except HTTPError as e:
+                if e.code == 429:
+                    # Handle Too Many Requests
+                    if attempt < max_retries - 1:
+                        time.sleep(retry_delay)  # Wait before retrying
+                        retry_delay *= 2  # Exponential backoff
+                    else:
+                        self.results_display.setText("Error: Too many requests. Please try again later.")
+                        return
+                else:
+                    self.results_display.setText(f"HTTP Error: {e.code} - {e.reason}")
+                    return
+
+            except URLError as e:
+                self.results_display.setText(f"URL Error: {str(e)}")
+                return
+
+            except Exception as e:
+                self.results_display.setText(f"An unexpected error occurred: {str(e)}")
+                return
+
+    def clear_results(self):
+        """Clear the results display."""
+        self.results_display.clear()
+
+    def save_results(self):
+        """Save the results to a text file."""
+        
+        options = QFileDialog.Options()
+        file_name, _ = QFileDialog.getSaveFileName(self, "Save Results", "", "Text Files (*.txt);;All Files (*)", options=options)
+        
+        if file_name:
+            try:
+                with open(file_name, 'w') as file:
+                    file.write(self.results_display.toPlainText())
+                QMessageBox.information(self, "Success", "Results saved successfully.")
+            except Exception as e:
+                QMessageBox.warning(self, "Error", f"Failed to save results: {e}")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
