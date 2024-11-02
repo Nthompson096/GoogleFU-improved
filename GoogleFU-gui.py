@@ -19,8 +19,8 @@ class GoogleFuApp(QMainWindow):
         # Banner
         banner_label = QLabel()
        # banner_pixmap = QPixmap("banner.png")  # You'll need to create this image
-        banner_label.setPixmap(banner_pixmap.scaledToWidth(700))
-        layout.addWidget(banner_label, alignment=Qt.AlignCenter)
+        # banner_label.setPixmap(banner_pixmap.scaledToWidth(700))
+        # layout.addWidget(banner_label, alignment=Qt.AlignCenter)
 
         # Description
         desc_label = QLabel("This tool will find information that are on Google about someone.\nIt works good with invented online names.")
