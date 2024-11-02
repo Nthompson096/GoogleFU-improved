@@ -15,6 +15,8 @@ It sorts them into 8 categorys (this can change anytime):
 ## Installation & Setup
 ```bash
 git clone https://github.com/Nthompson096/GoogleFU-improved.git
+python3 -m venv venv
+source venv/bin/activate 
 pip3 install -r requirements.txt
 ```
 
