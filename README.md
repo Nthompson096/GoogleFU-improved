@@ -34,6 +34,3 @@ python3 GoogleFU-gui.py
 There are two files in which you can append stuff:
  - [Social Media](./socials.txt)
  - [ratings](./ratings.txt)
-
-## Bugs or ideas?
-If you find any bug or if you have some ideas create an [issue](https://github.com/champmq/GoogleFU/issues)
