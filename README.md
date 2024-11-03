@@ -34,3 +34,7 @@ python3 GoogleFU-gui.py
 There are two files in which you can append stuff:
  - [Social Media](./socials.txt)
  - [ratings](./ratings.txt)
+
+## Bugs or Idea's, want to contrib to this fork?
+
+Feel free to post on [issues](https://github.com/Nthompson096/GoogleFU-improved/issues)
