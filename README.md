@@ -27,7 +27,7 @@ Be careful about doing this too much, it will flag for too much requests.
 ```Bash
 python3 GoogleFU-gui.py
 ```
-![demo](https://github.com/user-attachments/assets/28be7885-5b38-4993-ac03-7b7bc11c8318)
+![googlefu-demo](https://github.com/user-attachments/assets/0ab69e3d-e4ff-46e5-9cc1-f9310f047221)
 <br>
 
 ## Config
